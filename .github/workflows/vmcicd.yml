@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd /home/divya/testaction/node_todo_cicd_master
-          npm install  # Or use yarn if you prefer
+          npm install  # Or use yarn if preferred
 
       - name: SSH into VM and deploy
         uses: appleboy/ssh-action@master
