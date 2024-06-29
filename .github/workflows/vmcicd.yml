@@ -35,6 +35,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Debug directory existence
+      run: |
+        ls -la /home/divya/testaction/
+        ls -la /home/divya/testaction/node_todo_cicd_master
+
     - name: Deploy to GCP VM
       uses: appleboy/ssh-action@master
       with:
@@ -43,8 +48,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           echo "Starting deployment..."
-          pwd
-          ls -la /home/divya/testaction/
           cd /home/divya/testaction/node_todo_cicd_master
           pwd
           ls -la
