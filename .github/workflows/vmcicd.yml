@@ -18,6 +18,10 @@ jobs:
         with:
           node-version: '14'  # Adjust Node.js version as needed
 
+      - name: Ensure directory exists
+        run: |
+          mkdir -p /home/divya/testaction/node_todo_cicd_master
+
       - name: Install dependencies and build
         run: |
           cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; exit 1; }
@@ -40,4 +44,3 @@ jobs:
             cd /home/divya/testaction/node_todo_cicd_master
             git pull origin master
             npm run restart  # Restart your application
-
