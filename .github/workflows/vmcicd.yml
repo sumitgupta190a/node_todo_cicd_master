@@ -3,7 +3,7 @@ name: Deploy to GCP VM
 on:
   push:
     branches:
-      - main  # Adjust branch name as per your setup
+      - master  # Trigger deployment on push to master branch
 
 jobs:
   deploy:
@@ -19,7 +19,9 @@ jobs:
           node-version: '14'  # Adjust Node.js version as needed
 
       - name: Install dependencies
-        run: npm install  # Adjust for yarn or other package managers
+        run: |
+          cd /home/divya/testaction/node_todo_cicd_master
+          npm install  # Adjust for yarn or other package managers
 
       - name: SSH into VM and deploy
         uses: appleboy/ssh-action@master
@@ -28,6 +30,6 @@ jobs:
           username: ${{ secrets.VM_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /path/to/your/app
-            git pull origin main  # Update code from GitHub
-            npm run restart       # Adjust restart command as per your setup
+            cd /home/divya/testaction/node_todo_cicd_master
+            git pull origin master  # Update code from GitHub master branch
+            npm run restart  # Adjust restart command as per your setup
