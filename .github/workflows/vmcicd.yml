@@ -18,17 +18,17 @@ jobs:
         with:
           node-version: '14'  # Adjust Node.js version as needed
 
-      - name: Install dependencies
+      - name: Install dependencies and build
         run: |
-          sudo cd /home/divya/testaction/node_todo_cicd_master || exit 1  # Change directory and exit on failure
-          npm ci  # Execute npm command
+          cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; exit 1; }
+          npm ci  # Install dependencies
+          npm run build  # Build your application
 
-
-      - name: Build and Deploy
+      - name: Deploy and Restart Application
         run: |
-          sudo -s cd /home/divya/testaction/node_todo_cicd_master || exit 1
-          npm run build  # Replace with your build command
-          npm run deploy  # Replace with your deployment command
+          cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; exit 1; }
+          npm run deploy  # Deploy your application
+          npm run restart  # Restart your application
 
       - name: SSH into VM and restart application
         uses: appleboy/ssh-action@master
@@ -39,4 +39,5 @@ jobs:
           script: |
             cd /home/divya/testaction/node_todo_cicd_master
             git pull origin master
-            npm run restart  # Adjust for your application's restart command
+            npm run restart  # Restart your application
+
