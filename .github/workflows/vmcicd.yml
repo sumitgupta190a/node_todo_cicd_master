@@ -20,9 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo su
-          cd /home/divya/testaction/node_todo_cicd_master
-          npm ci
+          mkdir -p /home/divya/testaction/node_todo_cicd_master  # Ensure directory exists or create if not
+          cd /home/divya/testaction/node_todo_cicd_master || exit 1  # Change directory and exit on failure
+          npm ci  # Execute npm command
+
 
       - name: Build and Deploy
         run: |
