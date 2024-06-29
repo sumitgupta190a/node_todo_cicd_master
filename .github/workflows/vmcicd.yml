@@ -1,19 +1,19 @@
-name: Deploy to GCP VM
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - master  # Trigger deployment on push to master branch
+      - master  # Trigger pipeline on push to master branch
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'  # Adjust Node.js version as needed
@@ -21,15 +21,10 @@ jobs:
       - name: Install dependencies
         run: |
           cd /home/divya/testaction/node_todo_cicd_master
-          npm install  # Or use yarn if preferred
+          npm install
 
-      - name: SSH into VM and deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/divya/testaction/node_todo_cicd_master
-            git pull origin master
-            npm run restart  # Adjust for your application's restart command
+      - name: Build and Deploy
+        run: |
+          cd /home/divya/testaction/node_todo_cicd_master
+          npm run build  # Replace with your build command
+          npm run deploy  # Replace with your deployment command
