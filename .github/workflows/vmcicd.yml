@@ -20,7 +20,7 @@ jobs:
 
       - name: Ensure directory exists
         run: |
-          mkdir -p /home/divya/testaction/node_todo_cicd_master
+          sudo mkdir -p /home/divya/testaction/node_todo_cicd_master
 
       - name: Install dependencies and build
         run: |
