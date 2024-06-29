@@ -21,10 +21,21 @@ jobs:
       - name: Install dependencies
         run: |
           cd /home/divya/testaction/node_todo_cicd_master
-          npm install
+          npm ci
 
       - name: Build and Deploy
         run: |
           cd /home/divya/testaction/node_todo_cicd_master
           npm run build  # Replace with your build command
           npm run deploy  # Replace with your deployment command
+
+      - name: SSH into VM and restart application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/divya/testaction/node_todo_cicd_master
+            git pull origin master
+            npm run restart  # Adjust for your application's restart command
