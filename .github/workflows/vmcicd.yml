@@ -19,7 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd node_todo_cicd_master
+        cd /home/divya/testaction/node_todo_cicd_master
         npm install
 
     - name: Run tests
