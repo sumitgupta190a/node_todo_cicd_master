@@ -13,26 +13,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Ensure directory exists and navigate to it
+        run: |
+          mkdir -p /home/divya/testaction/node_todo_cicd_master
+          cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; exit 1; }
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'  # Adjust Node.js version as needed
 
-      - name: Ensure directory exists
-        run: |
-          sudo mkdir -p /home/divya/testaction/node_todo_cicd_master
+      - name: Install dependencies
+        run: npm ci  # Install dependencies
 
-      - name: Install dependencies and build
+      - name: Build and Deploy
         run: |
-          cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; exit 1; }
-          npm ci  # Install dependencies
           npm run build  # Build your application
-
-      - name: Deploy and Restart Application
-        run: |
-          cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; exit 1; }
           npm run deploy  # Deploy your application
-          npm run restart  # Restart your application
 
       - name: SSH into VM and restart application
         uses: appleboy/ssh-action@master
