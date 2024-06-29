@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: master
 
 jobs:
   build:
@@ -43,6 +43,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /home/divya/testaction/node_todo_cicd_master
-          git pull origin main
+          git pull origin master
           npm install
           pm2 restart node_todo_app || pm2 start app.js --name node_todo_app
