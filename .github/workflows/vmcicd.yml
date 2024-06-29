@@ -8,14 +8,15 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-   
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Ensure directory exists and navigate to it
         run: |
-          cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; exit 1; }
+          ls -l /home/divya/testaction  # List contents of parent directory for verification
+          cd /home/divya/testaction/node_todo_cicd_master || { echo "Directory not found"; ls -l /home/divya/testaction; exit 1; }
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
