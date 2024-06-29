@@ -26,10 +26,10 @@ jobs:
       - name: Install dependencies
         run: npm ci  # Install dependencies
 
-      - name: Build and Deploy
-        run: |
-          npm run build  # Build your application
-          npm run deploy  # Deploy your application
+    #   - name: Build and Deploy
+    #     run: |
+    #       npm run build  # Build your application
+    #       npm run deploy  # Deploy your application
 
       - name: SSH into VM and restart application
         uses: appleboy/ssh-action@master
